@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для друга</title>
+    <style>
+        body {
+            background-color: #b3d9ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: 'Segoe UI', sans-serif;
+            flex-direction: column;
+        }
+        #sun {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: yellow;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(255, 223, 0, 0.8);
+            transition: transform 0.3s ease, background-color 0.3s ease, opacity 1s ease;
+        }
+        #sun:hover {
+            transform: scale(1.2);
+            background-color: gold;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; transform: scale(0.5); }
+        }
+        @keyframes fall {
+            from { transform: translateY(-10px); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+        #text {
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            text-align: center;
+            transition: opacity 1s ease;
+        }
+        #buttons {
+            display: none;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 1s ease, transform 0.5s ease;
+        }
+        .btn {
+            padding: 12px 25px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: yellow;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fall 2s linear forwards;
+        }
+    </style>
+</head>
+<body>
+    <div id="sun"></div>
+    <div id="text">Это ты — луч света в этом мире!</div>
+    <div id="buttons">
+        <button class="btn" id="btn1">Сказать важное</button>
+        <button class="btn" id="btn2">Чудо</button>
+    </div>
+    <script>
+        const sun = document.getElementById('sun');
+        const text = document.getElementById('text');
+        const buttons = document.getElementById('buttons');
+        const btn1 = document.getElementById('btn1');
+        const btn2 = document.getElementById('btn2');
+
+        sun.addEventListener('click', () => {
+            text.textContent = 'Ты озарила этот мир!';
+            sun.style.animation = 'fadeOut 1s forwards';
+            text.style.opacity = '0';
+            
+            setTimeout(() => {
+                sun.style.display = 'none';
+                text.style.display = 'none';
+                buttons.style.display = 'flex';
+                setTimeout(() => {
+                    buttons.style.opacity = '1';
+                    buttons.style.transform = 'scale(1)';
+                }, 100);
+            }, 1000);
+        });
+
+        btn1.addEventListener('click', () => {
+            alert('Машуля, я очень хочу стать для тебя таким другом, которому ты пишешь с радостью и улыбаясь от моих сообщений, чтобы мы двигались вперед вместе, а также я буду твоей поддержкой! Позволишь мне стать таким другом для тебя? Если согласна отправь красное сердечко в тг <3');
+        });
+
+        btn2.addEventListener('click', () => {
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                document.body.appendChild(star);
+                
+                const startX = Math.random() * window.innerWidth;
+                const delay = Math.random() * 2;
+                
+                star.style.left = `${startX}px`;
+                star.style.animationDelay = `${delay}s`;
+                
+                setTimeout(() => {
+                    star.remove();
+                }, 2000 + delay * 1000);
+            }
+        });
+    </script>
+</body>
+</html>
